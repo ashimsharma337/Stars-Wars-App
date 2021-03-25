@@ -75,11 +75,13 @@
        };
 
        // Question: What does this code do?
-       $.post("/api/characters", newCharacter)
+       $.post("http://localhost:3000/api/new", newCharacter)
         .then(function(data) {
-           console.log("add.html", data);
+           console.log(data);
            alert("Adding character....");
         });
+
+        return false;
    });
 </script>
 </body>
