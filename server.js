@@ -71,6 +71,10 @@ app.get("/", function(req,res) {
     res.sendFile(path.join(__dirname, "view.html"));
 });
 
+app.get("/add", function(req,res) {
+    res.sendFile(path.join(__dirname, "add.html"));
+});
+
 app.get("/api/:characters?", function(req,res) {
 
     var chosen = req.params.characters;
@@ -93,10 +97,16 @@ app.get("/api/:characters?", function(req,res) {
     }  
 });
 
-// Create a new Express route that leads users to the new Obi Wan Kenobi Data
-// Follow the same format as the Yoda and Darth Maul routes
-//
+app.post("/api/new", function (req, res) {
+    var newCharacter = req.body;
+    newCharacter.routeName = newCharacter.name.replace(/\s+/g, "").toLowerCase();
 
+    console.log(newCharacter);
+
+    characters.push(newCharacter);
+
+    res.json(newCharacter);
+})
 
 
 // Listener
