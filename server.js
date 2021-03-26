@@ -8,23 +8,15 @@ var PORT = 3000;
 
 var path = require("path");
 
-var bodyParser = require('body-parser');
 
  
 // create application/x-www-form-urlencoded parser
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }));
  
 // parse application/json
-app.use(bodyParser.json())
+app.use(express.json());
  
-// parse various different custom JSON types as JSON
-app.use(bodyParser.json({ type: 'application/*+json' }))
- 
-// parse some custom thing into a Buffer
-app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }))
- 
-// parse an HTML body into a string
-app.use(bodyParser.text({ type: 'text/html' }))
+
 
 
 
@@ -73,6 +65,15 @@ app.get("/", function(req,res) {
 
 app.get("/add", function(req,res) {
     res.sendFile(path.join(__dirname, "add.html"));
+});
+
+app.get("/all", function(req,res) {
+    res.sendFile(path.join(__dirname, "all.html"));
+});
+
+// Displays all characters
+app.get("/api/characters", function(req, res) {
+    return res.json(characters);
 });
 
 app.get("/api/:characters?", function(req,res) {
